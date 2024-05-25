@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment Gateway Integration</title>
+</head>
+<body>
+    <h1>Razorpay Payment Gateway Integration</h1>
+    <button id="rzp-button">Pay with Razorpay</button>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.getElementById('rzp-button').onclick = function(e) {
+            var options = {
+                "key": "YOUR_RAZORPAY_KEY_ID", // Enter the Key ID generated from the Dashboard
+                "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise or ₹500.
+                "currency": "INR",
+                "name": "Your Company Name",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": "order_9A33XWu170gUtm", // This is a sample Order ID. Generate your own Order ID using Razorpay Orders API.
+                "handler": function (response){
+                    alert("Payment successful. Payment ID: " + response.razorpay_payment_id);
+                    // You can send the payment ID to your server for verification and further processing
+                },
+                "prefill": {
+                    "name": "John Doe",
+                    "email": "john.doe@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
